@@ -11,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @ExtendWith({
@@ -25,7 +26,7 @@ public class PetAPITests {
         softly.assertThat(pet.getId())
                 .as("Check pet ID")
                 .isEqualTo(petId);
-        softly.assertThat(pet.getStatus().getValue())
+        softly.assertThat(Objects.requireNonNull(pet.getStatus()).getValue())
                 .as("Check pet status")
                 .isIn("available", "pending", "sold");
         softly.assertThat(pet.getCategory())
