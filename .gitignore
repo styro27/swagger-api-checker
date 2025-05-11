@@ -1,0 +1,36 @@
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Gradle files
+**/.gradle
+
+# Compilation result files
+**/build
+**/out
+**/target
+
+# Allure Report files
+**/.allure
+**/allure-results
+
+# Other files
+*.class
+*.log
+*.db
+*.xls
+*.xlsx
