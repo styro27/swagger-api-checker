@@ -8,12 +8,11 @@ import static io.restassured.RestAssured.given;
 public class RestClient extends RestSpec {
 
     public ExtractableResponse<Response> get(
-            String endpoint,
-            long pathParam,
+            String path,
             int statusCode) {
         return given().spec(reqSpec())
                 .when()
-                .get(endpoint + pathParam)
+                .get(path)
                 .then()
                 .assertThat()
                 .statusCode(statusCode)

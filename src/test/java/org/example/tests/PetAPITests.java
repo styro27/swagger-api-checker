@@ -4,6 +4,7 @@ package org.example.tests;
 import com.example.petstore.model.Pet;
 import org.assertj.core.api.SoftAssertions;
 import org.example.RestClient;
+import org.example.enums.PetStoreEndpoints;
 import org.example.extensions.RestClientResolver;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,7 +20,7 @@ public class PetAPITests {
     @ParameterizedTest
     @MethodSource("getPetIds")
     void testGetPetById(int petId, RestClient client) {
-        Pet pet = client.get("/pet/", petId, 200).as(Pet.class);
+        Pet pet = client.get(PetStoreEndpoints.FIND_PET_BY_ID.buildUrl(petId), 200).as(Pet.class);
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(pet.getId())
                 .as("Check pet ID")
