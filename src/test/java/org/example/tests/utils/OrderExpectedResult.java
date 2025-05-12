@@ -2,6 +2,8 @@ package org.example.tests.utils;
 
 import com.example.petstore.model.Order;
 
+import java.util.Optional;
+
 public class OrderExpectedResult {
     public long id;
     public long petId;
@@ -16,12 +18,14 @@ public class OrderExpectedResult {
         this.complete = complete;
     }
     public static OrderExpectedResult from(Order order) {
-        return new OrderExpectedResult(
-                order.getId(),
-                order.getPetId(),
-                order.getQuantity(),
-                order.getStatus(),
-                order.getComplete()
-        );
+        return Optional.ofNullable(order)
+                .map(o -> new OrderExpectedResult(
+                        o.getId(),
+                        o.getPetId(),
+                        o.getQuantity(),
+                        o.getStatus(),
+                        o.getComplete()
+                ))
+                .orElseThrow(() -> new NullPointerException("Order cannot be null"));
     }
 }
