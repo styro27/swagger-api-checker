@@ -2,6 +2,7 @@ package org.example.tests;
 
 
 import com.example.petstore.model.Pet;
+import org.apache.http.HttpStatus;
 import org.assertj.core.api.SoftAssertions;
 import org.example.RestClient;
 import org.example.enums.PetStoreEndpoints;
@@ -18,10 +19,10 @@ import java.util.stream.Stream;
         RestClientResolver.class,
 })
 public class PetAPITests {
-    @ParameterizedTest
+    @ParameterizedTest(name="Check pet by ID= {0}")
     @MethodSource("getPetIds")
     void testGetPetById(int petId, RestClient client) {
-        Pet pet = client.get(PetStoreEndpoints.FIND_PET_BY_ID.buildUrl(petId), 200).as(Pet.class);
+        Pet pet = client.get(PetStoreEndpoints.FIND_PET_BY_ID.buildUrl(petId), HttpStatus.SC_OK).as(Pet.class);
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(pet.getId())
                 .as("Check pet ID")

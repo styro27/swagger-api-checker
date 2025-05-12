@@ -1,6 +1,5 @@
 package org.example;
 
-
 import com.atlassian.oai.validator.restassured.OpenApiValidationFilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -34,6 +33,7 @@ public class RestSpec {
                                 objectMapper()
                                         .findAndRegisterModules()
                                         .setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
+                                        .enable(SerializationFeature.WRITE_DATES_WITH_CONTEXT_TIME_ZONE)
                         ))
                 )
                 .addFilter(new AllureRestAssured())
@@ -51,10 +51,8 @@ public class RestSpec {
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
                 .enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
-
     }
-
 }
