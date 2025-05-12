@@ -1,5 +1,6 @@
 package org.example;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
@@ -26,6 +27,7 @@ public class RestClient extends RestSpec {
             int statusCode,
             Class<T> tClass) {
         return given().spec(reqSpec())
+                .contentType(ContentType.JSON)
                 .body(body)
                 .when()
                 .post(endpoint)

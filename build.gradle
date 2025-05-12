@@ -51,8 +51,18 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.17.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.1'
 
+    //Datafaker
+    implementation 'net.datafaker:datafaker:2.4.2'
+
+
     implementation 'org.yaml:snakeyaml:1.33'
     testImplementation 'org.yaml:snakeyaml:1.33'
+    configurations.all {
+        resolutionStrategy {
+            force 'org.yaml:snakeyaml:1.33'
+        }
+    }
+
 
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
 
@@ -88,6 +98,12 @@ sourceSets {
 
 test {
     useJUnitPlatform()
+    if (rootProject.hasProperty('profile')) {
+        environment("profile", profile)
+    } else {
+        println("The property 'profile' was not found! The default value will be 'test'")
+        environment "profile", "test"
+    }
 }
 
 allure {
